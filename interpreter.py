@@ -2,27 +2,51 @@ from __future__ import division
 import sys
 
 """
-A simple calculater
+A simple calculater, support (+,-,*,/,(,))
 """
 
 class interpreter(object):
     def __init__(self,expr):
         self.expr = expr
+    def findend(self,searchstr):
+        find = 0
+        for i in xrange(len(searchstr)):
+            if searchstr[i] == '(':
+                find += 1
+            elif searchstr[i] == ')':
+                find -= 1
+                if find == 0:
+                    return i
+            else:
+                pass
+        return None
     def gotit(self):
-        seperators = ['+','-','*','/','(',')']
+        seperators = ['+','-','*','/']
         seps = []
         oprs = []
-        #parentflag = 0
 
         epr = self.expr.strip().replace(' ','')
         initialpos = 0
+
+        # erase '(' and ')' in expression
+        while '(' in epr:
+            start = epr.index('(')
+            end = self.findend(epr)
+            if end is None:
+                print "input error"
+                return
+            if start+1 > end-1:
+                print "input error"
+                return
+            expr = epr[start+1:end]
+            nextobj = interpreter(expr)
+            retstr = nextobj.gotit()
+            del nextobj
+            epr = epr[:start]+retstr+epr[end+1:]
+            #print "epr is %s"%epr
+
+        # only (+,-,*,/)
         for i in xrange(len(epr)):
-            #if epr[i] is '(':
-            #    parentflag = 1
-            #    continue
-            #if epr[i] is ')':
-            #    parentflag = 0
-            #    continue
             if epr[i] in seperators:
                 seps.append(epr[i])
                 oprs.append(''.join(epr[initialpos:i]))
@@ -36,9 +60,6 @@ class interpreter(object):
                     print "input error"
                     return
 
-        #if parentflag > 0:
-        #    print "input error"
-        #    return
         #print "seps : %s"%seps
         #print "oprs : %s"%oprs
         return self.calc(seps,oprs)
@@ -87,6 +108,15 @@ def main():
         del exprinc
 
 def test():
+    # '5'
+    # '((3+4)*5+1)*3'
+    # '6/4+3'
+    # '7-9-8+4+2'
+    # '6+5'
+    # '6/4'
+    # '6*4'
+    # '(3+4)*5'
+    # '((3+4)*5+1)*3'
     pass
 
 if __name__ == "__main__":
