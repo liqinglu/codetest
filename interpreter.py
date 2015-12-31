@@ -1,11 +1,19 @@
-from __future__ import division
-import sys
-
 """
 A simple calculater, support (+,-,*,/,(,))
 """
+from __future__ import division
+import sys
+
 
 class interpreter(object):
+    """
+    >>> a = interpreter("5")
+    >>> a.gotit()
+    '5'
+    >>> a = interpreter("3+4/2")
+    >>> a.gotit()
+    '5.0'
+    """
     def __init__(self,expr):
         self.expr = expr
     def findend(self,searchstr):
@@ -94,6 +102,10 @@ class interpreter(object):
             tmp.append(str(res))
 
         return tmp[0]
+    def _clearexpr(self):
+        self.expr = None
+    def _setexpr(self,data):
+        self.expr = data
 
 def main():
     while 1:
@@ -108,22 +120,14 @@ def main():
         del exprinc
 
 def test():
-    # '5'
-    # '((3+4)*5+1)*3'
-    # '6/4+3'
-    # '7-9-8+4+2'
-    # '6+5'
-    # '6/4'
-    # '6*4'
-    # '(3+4)*5'
-    # '((3+4)*5+1)*3'
-    pass
+    import doctest
+    doctest.testmod(verbose=True)
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2 and sys.argv[1] == 'test':
-        test()
-    elif len(sys.argv) == 1:
+    if len(sys.argv) == 1:
         main()
+    elif len(sys.argv) == 2 and sys.argv[1] == "test":
+        test()
     else:
         print "Usage: "
         print " python <program>"
