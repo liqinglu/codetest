@@ -12,3 +12,4 @@ enqueue.py : a queue application, using subscribe-publish pattern
 puzzle : search all paths from a matrix, find out the smallest weight path
 interpreter.py,testinterpreter.py : a calculater implementation
 progress.py : a simple progress bar implementation
+sendmail.py : send a mail via smtplib
