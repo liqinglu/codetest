@@ -22,13 +22,12 @@ def send_mail(mail_from,mail_to,subject,text):
     msg.attach(part2)
 
     #s = smtplib.SMTP('135.251.50.68')
-    aliyun_user = "liqinglu2005@aliyun.com"
-    aliyun_passwd = "monarchs2013"
+    aliyun_user = "xxxx@aliyun.com"
+    aliyun_passwd = "yyyy"
     #socket.socket = socks.socksocket
     #socks.setdefaultproxy(socks.PROXY_TYPE_HTTP,"135.251.33.16",80,username="ad4\\qinglul",password="Haiku*2015")
     try:
-        s = smtplib.SMTP_SSL('smtp.aliyun.com',465) # 115.124.18.136
-        #s = smtplib.SMTP('smtp.aliyun.com',25) # 115.124.18.136
+        s = smtplib.SMTP_SSL('smtp.aliyun.com') # 115.124.18.136
         #s.helo()
         #s.ehlo()
         #s.starttls()
@@ -43,7 +42,7 @@ def send_mail(mail_from,mail_to,subject,text):
 
 def main():
     #print send_mail("liqinglu2005@aliyun.com","qinglu.li@alcatel-sbell.com.cn","test","I test")
-    print send_mail("liqinglu2005@aliyun.com","liqinglu2005@aliyun.com","test","I test")
+    print send_mail("xxxx@aliyun.com","yyyy@aliyun.com","test","I test")
 
 if __name__ == "__main__":
     main()
